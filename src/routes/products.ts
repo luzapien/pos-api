@@ -1,8 +1,8 @@
-import express from 'express'
-const router = express.Router();
+import { Router } from 'express'
+const productRouter = Router()
 
-router.get('/', (req, res) => {
-  res.send('This is the product route')
-});
+productRouter.get('/', (req, res) => {
+    res.send('This is the product route')
+})
 
-export default router;
+export { productRouter }
