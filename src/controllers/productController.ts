@@ -17,7 +17,6 @@ export const createProduct = async (req, res) => {
       data: { name, category_id, packaging },
     })
     res.status(200).json(newProduct)
-    console.log(newProduct)
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Failed to create product' })
@@ -56,7 +55,6 @@ export const updateProduct = async (req, res) => {
       },
       data: updateData,
     })
-    console.log('UPDATED', updatedProduct)
     return res.status(200).json(updatedProduct)
   } catch (error) {
     console.log(error)
