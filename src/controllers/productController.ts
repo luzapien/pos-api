@@ -1,5 +1,5 @@
 import { prisma } from '@/db/prisma.js'
-import type { RequestHandler, RequestParamHandler } from 'express'
+import type { RequestHandler } from 'express'
 
 export const getAllProducts: RequestHandler = async (_req, res) => {
   try {
@@ -24,7 +24,7 @@ export const createProduct: RequestHandler = async (req, res) => {
   }
 }
 
-export const getProductById: RequestParamHandler = async (req, res) => {
+export const getProductById: RequestHandler = async (req, res) => {
   try {
     const productById = await prisma.product.findUnique({
       where: {
@@ -32,16 +32,17 @@ export const getProductById: RequestParamHandler = async (req, res) => {
       },
     })
     if (!productById) {
-      return res.status(404).json({ error: 'Product not found' })
+      res.status(404).json({ error: 'Product not found' })
+      return
     }
-    return res.status(200).json(productById)
+    res.status(200).json(productById)
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Failed to fetch product by Id' })
   }
 }
 
-export const updateProduct: RequestParamHandler = async (req, res) => {
+export const updateProduct: RequestHandler = async (req, res) => {
   try {
     const updateData = req.body
     const updatedProduct = await prisma.product.update({
@@ -50,21 +51,23 @@ export const updateProduct: RequestParamHandler = async (req, res) => {
       },
       data: updateData,
     })
-    return res.status(200).json(updatedProduct)
+    res.status(200).json(updatedProduct)
+    return
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Failed to update product' })
   }
 }
 
-export const deleteProduct: RequestParamHandler = async (req, res) => {
+export const deleteProduct: RequestHandler = async (req, res) => {
   try {
     const deleteProduct = await prisma.product.delete({
       where: {
         id: req.params.id,
       },
     })
-    return res.status(200).json(`${deleteProduct.name} deleted`)
+    res.status(200).json(`${deleteProduct.name} deleted`)
+    return
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Failed to delete product' })

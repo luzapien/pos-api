@@ -1,3 +1,4 @@
+import { categoryRouter } from './routes/categories.js'
 import { productRouter } from '@/routes/products.js'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -15,6 +16,7 @@ app.get('/', (_req, res) => {
 const port = process.env.PORT || 3000
 
 app.use('/products', productRouter)
+app.use('/categories', categoryRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
