@@ -1,6 +1,7 @@
 import { prisma } from '@/db/prisma.js'
+import type { RequestHandler, RequestParamHandler } from 'express'
 
-export const getAllProducts = async (_req, res) => {
+export const getAllProducts: RequestHandler = async (_req, res) => {
   try {
     const products = await prisma.product.findMany()
     res.json(products)
@@ -10,7 +11,7 @@ export const getAllProducts = async (_req, res) => {
   }
 }
 
-export const createProduct = async (req, res) => {
+export const createProduct: RequestHandler = async (req, res) => {
   try {
     const { name, category_id, packaging } = req.body
     const newProduct = await prisma.product.create({
@@ -23,16 +24,11 @@ export const createProduct = async (req, res) => {
   }
 }
 
-export const getProductById = async (req, res) => {
+export const getProductById: RequestParamHandler = async (req, res) => {
   try {
-    const productId = Number.parseInt(req.params.id, 10)
-
-    if (Number.isNaN(productId)) {
-      return res.status(400).json({ error: 'Invalid product ID' })
-    }
     const productById = await prisma.product.findUnique({
       where: {
-        id: productId,
+        id: req.params.id,
       },
     })
     if (!productById) {
@@ -45,13 +41,12 @@ export const getProductById = async (req, res) => {
   }
 }
 
-export const updateProduct = async (req, res) => {
+export const updateProduct: RequestParamHandler = async (req, res) => {
   try {
-    const productId = Number.parseInt(req.params.id, 10)
     const updateData = req.body
     const updatedProduct = await prisma.product.update({
       where: {
-        id: productId,
+        id: req.params.id,
       },
       data: updateData,
     })
@@ -62,15 +57,14 @@ export const updateProduct = async (req, res) => {
   }
 }
 
-export const deleteProduct = async (req, res) => {
+export const deleteProduct: RequestParamHandler = async (req, res) => {
   try {
-    const productId = Number.parseInt(req.params.id, 10)
     const deleteProduct = await prisma.product.delete({
       where: {
-        id: productId,
+        id: req.params.id,
       },
     })
-    return res.status(200).json(` ${deleteProduct.name} deleted`)
+    return res.status(200).json(`${deleteProduct.name} deleted`)
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Failed to delete product' })

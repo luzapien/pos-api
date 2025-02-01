@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "category" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
 
     CONSTRAINT "category_pkey" PRIMARY KEY ("id")
@@ -8,10 +8,10 @@ CREATE TABLE "category" (
 
 -- CreateTable
 CREATE TABLE "product" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "packaging" TEXT NOT NULL,
-    "category_id" INTEGER NOT NULL,
+    "category_id" TEXT NOT NULL,
 
     CONSTRAINT "product_pkey" PRIMARY KEY ("id")
 );
