@@ -1,5 +1,5 @@
 import { prisma } from '@/db/prisma.js'
-import type { Request, RequestHandler, Response } from 'express'
+import type { RequestHandler } from 'express'
 
 export const getAllProducts: RequestHandler = async (_req, res) => {
   try {
@@ -24,7 +24,7 @@ export const createProduct: RequestHandler = async (req, res) => {
   }
 }
 
-export const getProductById: RequestHandler = async (req: Request, res: Response) => {
+export const getProductById: RequestHandler = async (req, res) => {
   try {
     const productById = await prisma.product.findUnique({
       where: {
@@ -42,7 +42,7 @@ export const getProductById: RequestHandler = async (req: Request, res: Response
   }
 }
 
-export const updateProduct: RequestHandler = async (req: Request, res: Response) => {
+export const updateProduct: RequestHandler = async (req, res) => {
   try {
     const updateData = req.body
     const updatedProduct = await prisma.product.update({
@@ -59,7 +59,7 @@ export const updateProduct: RequestHandler = async (req: Request, res: Response)
   }
 }
 
-export const deleteProduct: RequestHandler = async (req: Request, res: Response) => {
+export const deleteProduct: RequestHandler = async (req, res) => {
   try {
     const deleteProduct = await prisma.product.delete({
       where: {

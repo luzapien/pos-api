@@ -1,5 +1,5 @@
 import { prisma } from '@/db/prisma.js'
-import type { Request, RequestHandler, Response } from 'express'
+import type { RequestHandler } from 'express'
 
 export const getAllCategories: RequestHandler = async (_req, res) => {
   try {
@@ -24,7 +24,7 @@ export const createCategory: RequestHandler = async (req, res) => {
   }
 }
 
-export const getCategoryById: RequestHandler = async (req: Request, res: Response) => {
+export const getCategoryById: RequestHandler = async (req, res) => {
   try {
     const categoryById = await prisma.category.findUnique({
       where: {
@@ -43,7 +43,7 @@ export const getCategoryById: RequestHandler = async (req: Request, res: Respons
   }
 }
 
-export const updateCategory: RequestHandler = async (req: Request, res: Response) => {
+export const updateCategory: RequestHandler = async (req, res) => {
   try {
     const updateData = req.body
     const updatedCategory = await prisma.category.update({
@@ -60,7 +60,7 @@ export const updateCategory: RequestHandler = async (req: Request, res: Response
   }
 }
 
-export const deleteCategory: RequestHandler = async (req: Request, res: Response) => {
+export const deleteCategory: RequestHandler = async (req, res) => {
   try {
     const categoryDeleted = await prisma.category.delete({
       where: {
