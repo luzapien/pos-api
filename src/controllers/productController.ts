@@ -3,7 +3,9 @@ import type { RequestHandler } from 'express'
 
 export const getAllProducts: RequestHandler = async (_req, res) => {
   try {
-    const products = await prisma.product.findMany()
+    const products = await prisma.product.findMany({
+      include: { category: true },
+    })
     res.json(products)
   } catch (error) {
     console.log(error)
