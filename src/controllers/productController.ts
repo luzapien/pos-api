@@ -19,8 +19,7 @@ export const createProduct: RequestHandler = async (req, res) => {
     const newProduct = await prisma.product.create({
       data: { name, category_id, packaging, price },
     })
-    console.log('newProduct', newProduct)
-    res.status(200).json('Product created')
+    res.status(200).json(newProduct.id)
   } catch (error) {
     console.log(error)
     res.status(500).json({ error: 'Failed to create product' })
@@ -48,7 +47,6 @@ export const getProductById: RequestHandler = async (req, res) => {
 export const updateProduct: RequestHandler = async (req, res) => {
   try {
     const updateData = req.body
-    console.log('updateData', updateData)
     const updatedProduct = await prisma.product.update({
       where: {
         id: req.params.id,
