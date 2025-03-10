@@ -12,6 +12,7 @@ CREATE TABLE "product" (
     "name" TEXT NOT NULL,
     "packaging" TEXT NOT NULL,
     "category_id" TEXT NOT NULL,
+    "price" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "product_pkey" PRIMARY KEY ("id")
 );
