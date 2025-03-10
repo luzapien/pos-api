@@ -27,6 +27,7 @@ model Product {
   name        String
   packaging   String
   category_id String
+  price       Float
   category    Category  @relation(fields: [category_id], references: [id])
 
   @@map("product")
