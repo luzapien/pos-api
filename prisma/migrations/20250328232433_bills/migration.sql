@@ -2,6 +2,8 @@
 CREATE TABLE "category" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "category_pkey" PRIMARY KEY ("id")
 );
@@ -13,6 +15,8 @@ CREATE TABLE "product" (
     "packaging" TEXT NOT NULL,
     "category_id" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "product_pkey" PRIMARY KEY ("id")
 );
@@ -21,6 +25,9 @@ CREATE TABLE "product" (
 CREATE TABLE "bill" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "total" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "bill_pkey" PRIMARY KEY ("id")
 );
