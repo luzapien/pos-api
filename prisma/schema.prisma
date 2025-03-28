@@ -14,22 +14,39 @@ datasource db {
 }
 
 model Category {
-  id          String    @id   @default(uuid())
-  name        String
-  products    Product[]
+  id       String    @id @default(uuid())
+  name     String
+  products Product[]
 
-   @@map("category")
+  @@map("category")
 }
 
-
 model Product {
-  id          String    @id      @default(uuid())
+  id          String         @id @default(uuid())
   name        String
   packaging   String
   category_id String
   price       Float
-  category    Category  @relation(fields: [category_id], references: [id])
+  category    Category       @relation(fields: [category_id], references: [id])
+  bills      BillProduct[]
 
   @@map("product")
+}
 
+model Bill {
+  id       String         @id @default(uuid())
+  name     String
+  products BillProduct[]
+
+  @@map("bill")
+}
+
+model BillProduct {
+  billId   String
+  productId String
+  bill     Bill   @relation(fields: [billId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([billId, productId])
+  @@map("bill_product")
 }
