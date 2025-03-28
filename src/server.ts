@@ -1,3 +1,4 @@
+import { billRouter } from './routes/bills.js'
 import { categoryRouter } from './routes/categories.js'
 import { productRouter } from '@/routes/products.js'
 import cors from 'cors'
@@ -19,6 +20,7 @@ const port = process.env.PORT || 3000
 
 app.use('/products', productRouter)
 app.use('/categories', categoryRouter)
+app.use('/bills', billRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
